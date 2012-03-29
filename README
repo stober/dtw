@@ -1,0 +1,10 @@
+Dynamic Time Warping in Python
+
+Author: Jeremy Stober
+Contact: stober@gmail.com
+Version: 0.1
+
+This is a collection of dynamic time warping algorithms (including
+related algorithms like edit-distance).
+
+Requires: numpy
