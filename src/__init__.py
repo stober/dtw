@@ -34,9 +34,11 @@ def initialize_dmatrix(rows,cols):
     d = np.zeros((rows,cols),dtype='float')
 
     for i in range(rows):
-        d[i,0] = i
+        d[i,0] = 1e6
     for j in range(cols):
-        d[0,j] = j
+        d[0,j] = 1e6
+
+    d[0,0] = 0
 
     return d
 
