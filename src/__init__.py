@@ -33,33 +33,24 @@ def non_dtw_distance(s,t,default=None,costf=None):
 def initialize_dmatrix(rows,cols):
     d = np.zeros((rows,cols),dtype='float')
 
-    for i in range(rows):
-        d[i,0] = 1e6
-    for j in range(cols):
-        d[0,j] = 1e6
-
+    d[:,0] = 1e6
+    d[0,:] = 1e6
     d[0,0] = 0
 
     return d
 
+def initialize_ematrix(rows,cols):
+    d = np.zeros((rows,cols),dtype='float')
 
+    d[:,0] = np.arange(rows)
+    d[0,:] = np.arange(cols)
 
-# Note that wikipedia orginally recommended initializing using Inf
-# values. Ex:
-
-#d[:,0] = 1e6
-#d[0,:] = 1e6
-#d[0,0] = 0
-
-#This means that comparing to any empty string would result
-# in an Inf value. Need to reason about boundry conditions.
-
-
+    return d
 
 def edit_distance(s,t):
     n = len(s)
     m = len(t)
-    d = initialize_dmatrix(n+1,m+1)
+    d = initialize_ematrix(n+1,m+1)
 
     for i in range(1,n+1):
         for j in range(1,m+1):
