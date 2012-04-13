@@ -4,12 +4,21 @@ cimport numpy as np
 DTYPE = np.double
 ctypedef np.double_t DTYPE_t
 
+cdef double min3(double a, double b, double c):
+    m = a
+    if b < m:
+        m = b
+    if c < m:
+        m = c
+    return m
+
+
 def dtw_fast(np.ndarray s, np.ndarray t):
     
     cdef int nrows = s.shape[0]
     cdef int ncols = t.shape[0]
     
-    cdef np.ndarray dtw = np.zeros((nrows+1,ncols+1), dtype = DTYPE)
+    cdef np.ndarray[DTYPE_t,ndim=2] dtw = np.zeros((nrows+1,ncols+1), dtype = DTYPE)
 
     dtw[:,0] = 1e6
     dtw[0,:] = 1e6
@@ -21,6 +30,6 @@ def dtw_fast(np.ndarray s, np.ndarray t):
     for i in range(nrows):
         for j in range(ncols):
             cost = la.norm(s[i] - t[j])
-            dtw[i+1,j+1] = cost + np.min([dtw[i,j+1],dtw[i+1,j],dtw[i,j]])
+            dtw[i+1,j+1] = cost + min3(dtw[i,j+1],dtw[i+1,j],dtw[i,j])
 
     return dtw[nrows,ncols]
