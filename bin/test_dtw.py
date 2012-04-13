@@ -9,6 +9,7 @@ Description: Test DTW algorithms.
 import numpy as np
 from dtw import *
 import dtw.fast
+import mlpy.dtw
 import numpy.random as npr
 import pylab
 
@@ -43,6 +44,11 @@ if __name__ == '__main__':
     print dtw_distance(xa,ya) #,[1.0,1.0,0.0])
     print "Fast Version"
     print dtw.fast.dtw_fast(xa,ya)
+    #print "MLPY"
+    #print mlpy.dtw.dtw_std(xa,ya)
+    print "Fast Version 2D"
+    print dtw.fast.dtw_fast_2d(xa,ya)
+    
     pylab.show()
 
 
