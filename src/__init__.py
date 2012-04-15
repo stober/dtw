@@ -61,6 +61,23 @@ def edit_distance(s,t):
 
     return d[n,m]
 
+def edit_distance_vc(s,t, costs = (1,1,1)):
+    # edit distance with variable costs
+    n = len(s)
+    m = len(t)
+    d = initialize_ematrix(n+1,m+1)
+
+    for i in range(1,n+1):
+        for j in range(1,m+1):
+            if s[i-1] == t[j-1]:
+                d[i,j] = d[i-1,j-1]
+            else:
+                d[i,j] = min(d[i-1,j] + costs[0], d[i,j-1] + costs[1], d[i-1,j-1] + costs[2])
+
+    return d[n,m]
+
+
+
 def etw_distance(list1, list2, params, costf=lambda x,y: la.norm(x - y)):
     """
     etw_distance : extended time warping
